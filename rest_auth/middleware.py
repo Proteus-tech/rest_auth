@@ -18,10 +18,11 @@ class AjaxUserMiddleware(object):
             if params:
                 current_user = params.get('current_user')
                 signed_value = params.get('signed_value')
-                splitted_signed_value = signed_value.split('TIME')
-                if len(splitted_signed_value) == 2:
-                    input_signature = splitted_signed_value[0]
-                    signed_time = datetime.strptime(splitted_signed_value[1],time_format)
+                if signed_value:
+                    splitted_signed_value = signed_value.split('TIME')
+                    if len(splitted_signed_value) == 2:
+                        input_signature = splitted_signed_value[0]
+                        signed_time = datetime.strptime(splitted_signed_value[1],time_format)
 
             utc_now = datetime.utcnow()
             delta = timedelta(0, getattr(settings,
@@ -42,3 +43,5 @@ class AjaxUserMiddleware(object):
                     request.META['HTTP_X_FOST_HEADERS'] = 'X-FOST-User'
                     request.META['HTTP_X_FOST_TIMESTAMP'] = timestamp
                     request.META['HTTP_AUTHORIZATION'] = 'FOST %s:%s' % (current_user,signature)
+
+
