@@ -63,7 +63,8 @@ function addParameter(url, parameterName, parameterValue){
 }
 
 function update_url_with_signature(method, url){
-    var signature = get_signature(method, url, CURRENT_USER);
+    var url_before_params = url.split('?')[0]; // assuming there's no weird url
+    var signature = get_signature(method, url_before_params, CURRENT_USER);
     url = addParameter(url,'current_user',CURRENT_USER);
     url = addParameter(url,'signed_value',encodeURI(signature));
     return url

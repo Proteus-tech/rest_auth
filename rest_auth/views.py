@@ -12,7 +12,6 @@ def signature(request):
         return HttpResponseNotAllowed(['GET'])
 
     params = request.GET.copy()
-    print params
 
     if request.user.username != params.get('current_user'):
         return HttpResponseForbidden('You do not have permission to do this action.')
