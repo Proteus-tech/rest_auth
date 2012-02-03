@@ -24,12 +24,12 @@ from setuptools import setup
 
 setup(
     name='rest-auth',
-    version='0.3.0',
+    version='0.3.1',
     description='Classes for helping in authentication between services',
     author='Proteus Technologies Co. Ltd.',
     author_email='team@proteus-tech.com',
     url='https://github.com/Proteus-tech/rest_auth',
-    packages=['rest_auth','rest_auth.templatetags'],
+    packages=['rest_auth','rest_auth.templatetags','rest_auth.static'],
     install_requires = ['Django>=1.3.1',],
     dependency_links = [
         'http://github.com/Felspar/django-fost-authn/tarball/master#egg=django-fost-authn',
