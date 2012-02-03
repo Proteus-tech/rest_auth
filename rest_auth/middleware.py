@@ -14,19 +14,22 @@ class AjaxUserMiddleware(object):
             current_user = ''
             input_signature = ''
             signed_time = datetime.min
-            if request.method == "GET":
-                params = request.GET.copy()
-            elif request.method == "POST" or request.method == "PUT":
-                params = request.POST.copy()
+            params = request.GET
+
             if params:
                 current_user = params.get('current_user')
                 signed_value = params.get('signed_value')
+
                 logger.info('current_user: %s' % current_user)
                 logger.info('signed_value: %s' % signed_value)
                 if signed_value:
                     splitted_signed_value = signed_value.split('TIME')
                     if len(splitted_signed_value) == 2:
                         input_signature = splitted_signed_value[0]
+
+                        # because '+' will turn into space, we will replace all space with '+'
+                        input_signature = input_signature.replace(' ','+')
+
                         signed_time = datetime.strptime(splitted_signed_value[1],time_format)
 
             utc_now = datetime.utcnow()
