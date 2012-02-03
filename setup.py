@@ -24,7 +24,7 @@ from setuptools import setup
 
 setup(
     name='rest-auth',
-    version='0.2.2',
+    version='0.3.0',
     description='Classes for helping in authentication between services',
     author='Proteus Technologies Co. Ltd.',
     author_email='team@proteus-tech.com',
