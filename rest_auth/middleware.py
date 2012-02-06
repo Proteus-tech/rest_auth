@@ -16,7 +16,7 @@ class AjaxUserMiddleware(object):
 
 
     def process_request(self, request):
-        if not request.user.username:
+        if not request.user.username and not self.authentication_headers_exist(request):
             logger.info('path: %s' % request.path)
             time_format = '%Y-%m-%d %H:%M:%S'
             current_user = ''
