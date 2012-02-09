@@ -69,3 +69,27 @@ function update_url_with_signature(method, url){
     url = addParameter(url,'signed_value',encodeURI(signature));
     return url
 }
+
+function make_call_with_signature(method, url){
+    if (typeof CURRENT_USER === "undefined"){
+        $(document).trigger('signature_done', [url]);
+    } else {
+        var path = url.split('?')[0]; // assuming there's no weird url
+        var signature = '';
+        var get_data = {
+            'method': method,
+            'path': path,
+            'current_user': CURRENT_USER
+        };
+        $.ajax({
+            url: '/rest_auth/signature/',
+            data: get_data,
+            success: function(returned_data){
+                signature = returned_data;
+                url = addParameter(url,'current_user',CURRENT_USER);
+                url = addParameter(url,'signed_value',encodeURI(signature));
+                $(document).trigger('signature_done', [url]);
+            },
+        });
+    }
+}
